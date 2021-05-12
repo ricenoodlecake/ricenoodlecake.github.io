@@ -39,10 +39,10 @@ input {
   overflow: hidden;
 }
 
-.frm-hover-zoom form {
+.frm-hover-zoom input {
   transition: transform .5s ease;
 }
 
-.frm-hover-zoom:hover form {
+.frm-hover-zoom:hover img {
   transform: scale(1.5);
 }
