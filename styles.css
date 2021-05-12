@@ -34,15 +34,13 @@ input {
     margin: auto;
 }
 
-.frm-hover-zoom {
-  height: 300px;
-  overflow: hidden;
+.frm-hover-zoom--colorize input {
+  transition: transform .5s, filter 1.5s ease-in-out;
+  filter: grayscale(100%);
 }
 
-.frm-hover-zoom input {
-  transition: transform .5s ease;
-}
-
-.frm-hover-zoom:hover img {
-  transform: scale(1.5);
+/* The Transformation */
+.frm-hover-zoom--colorize:hover input {
+  filter: grayscale(0);
+  transform: scale(1.1);
 }
