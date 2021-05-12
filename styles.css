@@ -34,15 +34,15 @@ input {
     margin: auto;
 }
 
-.img-hover-zoom {
+.frm-hover-zoom {
   height: 300px;
   overflow: hidden;
 }
 
-.img-hover-zoom img {
+.frm-hover-zoom form {
   transition: transform .5s ease;
 }
 
-.img-hover-zoom:hover img {
+.frm-hover-zoom:hover form {
   transform: scale(1.5);
 }
