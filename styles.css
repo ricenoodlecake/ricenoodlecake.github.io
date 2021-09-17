@@ -1,33 +1,32 @@
 html {
-    background: #202124;
+    background-color: #000000;
 }
 
 body {
-    margin: 0px;
-    padding: 0px;
-}
+    margin: 0;
+    padding: 0;
 
-.heading {
-    position: absolute;
-    width: 1506px;
-    height: 90px;
-    padding-left: 30px;
-    top: 0px;
-}
-
-h1 {
-    font-size: 60;
     color: white;
     font-family: Roboto, 'Segoe UI', Tahoma, sans-serif;
 }
 
-canvas {
-    position: absolute;
-    padding-left: 0px;
-    padding-right: 0px;
+.heading {
+    position: flex;
+
+    background-color: #35363A;
+}
+
+h1 {
+    margin: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+}
+
+.gameCamera {
+    background-color: #202124;
+    position: flex;
+    height: 500px;
+
     float: top;
-    top: 90px;
-    bottom: 0;
-    left: 0;
-    right: 0px;
 }
