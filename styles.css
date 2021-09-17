@@ -1,5 +1,6 @@
 html {
     background-color: #000000;
+    overflow: hidden;
 }
 
 body {
@@ -24,9 +25,40 @@ h1 {
 }
 
 .gameCamera {
+    margin: auto;
     background-color: #202124;
-    position: flex;
-    height: 500px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    height: 650px;
 
     float: top;
+}
+
+.canvas {
+    background-color: #202124;
+    position: flex;
+    width: 600px;
+    height: 450px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    float: top;
+}
+
+.player {
+    width: 25px;
+    height: 25px;
+
+    color: white;
+    position: absolute;
 }
