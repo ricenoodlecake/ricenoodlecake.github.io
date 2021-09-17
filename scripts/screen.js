@@ -1,47 +1,44 @@
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
-let start, timeStamp
-var scriptControl, scriptIsRunning
+const canvasFillColor = "#bcbcbc";
+const canvasOutlineColor = "#000000";
 
 canvas.width = innerWidth
 canvas.height = innerHeight
 
 class Controller {
-
-    constructor(x, y, w, h, color) {
+    constructor(x, y, w, h, color, isMoving) {
         this.x = x
         this.xV = 0
         this.y = y 
-        this.yV = 1
+        this.yV = 0
         this.w = w
         this.h = h
         this.color = color
-        this.time = 1
+        this.isMoving = isMoving
     }
-
     draw() {
-        ctx.fillRect(this.x + this.xV, this.y + this.xY, this.w, this.h)
-        //this.time++
-        //console.log(this.time)
-    }
+        ctx.fillStyle = canvasFillColor
+        ctx.strokeStyle = canvasOutlineColor
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        ctx.strokeRect(0, 0, canvas.width, canvas.height)
 
-    update() {
-        this.x += this.xV
-        this.y += this.yV
-        if(this.y > canvas.width) this.y = 0
+        ctx.fillStyle = this.color
+        ctx.fillRect(this.x, this.y, this.w, this.h)
     }
 }
 
-const controller = new Controller(100, 100, 25, 25, 'red')
+const controller = new Controller(100, 100, 25, 25, 'black', false)
 controller.draw()
 
-timeStamp = 200
-var previousTimeStamp = 0
-
 function animate() {
-    console.log('go')
+    controller.draw()
+    console.log('ticks')
 }
-setInterval(animate, 1000)
 
-console.log(controller)
+window.addEventListener('keydown', (event) => {
+    const { style } = controller;
+});
+
+setInterval(animate, 1000/5)
