@@ -6,24 +6,30 @@ var keyPresses = []
 const canvasFillColor = "#35363A"
 const tickRate = 100
 
-canvas.width = innerWidth
-canvas.height = innerHeight
+const initX = 200
+const initY = 100
+const cWidth = 50
+const cHeight = 50
+const xVel = 8
+const yVel = 8
+
+canvas.width = window.screen.availWidth
+canvas.height = window.screen.availHeight
 
 class Controller {
-    constructor(x, y, w, h, color, isMoving) {
+    constructor(x, y, w, h, color) {
         this.x = x
         this.y = y
         this.w = w
         this.h = h
         this.color = color
-        this.isMoving = isMoving
     }
     draw() {
         ctx.fillStyle = canvasFillColor
         ctx.fillRect(0, 0, canvas.width, canvas.height)
 
         ctx.fillStyle = this.color
-        ctx.fillRect(this.x, this.y, this.w, this.h)
+        ctx.fillRect(this.x, this.y, cWidth, cHeight)
     }
     moveX(xV) {
         this.x += xV
@@ -38,10 +44,6 @@ class Controller {
         this.draw()
     }
 }
-
-const controller = new Controller(100, 100, 25, 25, 'white', false)
-controller.draw()
-
 
 function queueMovement(e) {
     if(e.keyCode == 39 || e.keyCode == 68) {       //right arrow key
@@ -75,15 +77,15 @@ function resetMovement(e) {
 
 function calculateXMovement() {
     xV = 0
-    if(keyPresses[0]) xV = 4
-    if(keyPresses[1]) xV = -4
+    if(keyPresses[0]) xV = xVel
+    if(keyPresses[1]) xV = -xVel
     return xV
 }
 
 function calculateYMovement() {
     yV = 0
-    if(keyPresses[2]) yV = -4
-    if(keyPresses[3]) yV = 4
+    if(keyPresses[2]) yV = -yVel
+    if(keyPresses[3]) yV = yVel
     return yV
 }
 
@@ -96,12 +98,18 @@ function animate() {
 }
 
 function resetCanvasSize() {
-    canvas.width = innerWidth
-    canvas.height = innerHeight
+    if(innerWidth > canvas.width || innerHeight > canvas.height) {
+        canvas.width = innerWidth
+        canvas.height = innerHeight
+    }
 }
 
 document.onkeydown = queueMovement
 document.onkeyup = resetMovement
 window.onresize = resetCanvasSize;
 
+const controller = new Controller(initX, initY, 50, 50, 'white')
+controller.draw()
+
+console.log(innerWidth + " " + innerHeight)
 setInterval(animate, 1000/tickRate)
