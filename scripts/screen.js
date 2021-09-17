@@ -1,8 +1,10 @@
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
-const canvasFillColor = "#bcbcbc";
-const canvasOutlineColor = "#000000";
+var keyPresses = []
+
+const canvasFillColor = "#35363A"
+const tickRate = 100
 
 canvas.width = innerWidth
 canvas.height = innerHeight
@@ -10,9 +12,7 @@ canvas.height = innerHeight
 class Controller {
     constructor(x, y, w, h, color, isMoving) {
         this.x = x
-        this.xV = 0
-        this.y = y 
-        this.yV = 0
+        this.y = y
         this.w = w
         this.h = h
         this.color = color
@@ -20,25 +20,81 @@ class Controller {
     }
     draw() {
         ctx.fillStyle = canvasFillColor
-        ctx.strokeStyle = canvasOutlineColor
         ctx.fillRect(0, 0, canvas.width, canvas.height)
-        ctx.strokeRect(0, 0, canvas.width, canvas.height)
 
         ctx.fillStyle = this.color
         ctx.fillRect(this.x, this.y, this.w, this.h)
     }
+    moveX(xV) {
+        this.x += xV
+        if(this.x < 0) this.x = 0
+        if(this.x + this.w > canvas.width) this.x = canvas.width - this.w
+        this.draw()
+    }
+    moveY(yV) {
+        this.y += yV
+        if(this.y < 0) this.y = 0
+        if(this.y + this.h > canvas.height) this.y = canvas.height - this.h
+        this.draw()
+    }
 }
 
-const controller = new Controller(100, 100, 25, 25, 'black', false)
+const controller = new Controller(100, 100, 25, 25, 'white', false)
 controller.draw()
 
+
+function queueMovement(e) {
+    if(e.keyCode == 39 || e.keyCode == 68) {       //right arrow key
+        keyPresses[0] = true
+    }
+    if(e.keyCode == 37 || e.keyCode == 65) {       //left arrow key
+        keyPresses[1] = true
+    }
+    if(e.keyCode == 38 || e.keyCode == 87) {       //up arrow key
+        keyPresses[2] = true
+    }
+    if(e.keyCode == 40 || e.keyCode == 83) {       //down arrow key
+        keyPresses[3] = true
+    }
+}
+
+function resetMovement(e) {
+    if(e.keyCode == 39 || e.keyCode == 68) {       //right arrow key
+        keyPresses[0] = false
+    }
+    if(e.keyCode == 37 || e.keyCode == 65) {       //left arrow key
+        keyPresses[1] = false
+    }
+    if(e.keyCode == 38 || e.keyCode == 87) {       //up arrow key
+        keyPresses[2] = false
+    }
+    if(e.keyCode == 40 || e.keyCode == 83) {       //down arrow key
+        keyPresses[3] = false
+    }
+}
+
+function calculateXMovement() {
+    xV = 0
+    if(keyPresses[0]) xV = 4
+    if(keyPresses[1]) xV = -4
+    return xV
+}
+
+function calculateYMovement() {
+    yV = 0
+    if(keyPresses[2]) yV = -4
+    if(keyPresses[3]) yV = 4
+    return yV
+}
+
 function animate() {
+    controller.moveX(calculateXMovement())
+    controller.moveY(calculateYMovement())
     controller.draw()
     console.log('ticks')
 }
 
-window.addEventListener('keydown', (event) => {
-    const { style } = controller;
-});
+document.onkeydown = queueMovement
+document.onkeyup = resetMovement
 
-setInterval(animate, 1000/5)
+setInterval(animate, 1000/tickRate)
