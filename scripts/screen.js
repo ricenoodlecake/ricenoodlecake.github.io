@@ -91,10 +91,17 @@ function animate() {
     controller.moveX(calculateXMovement())
     controller.moveY(calculateYMovement())
     controller.draw()
+
     console.log('ticks')
+}
+
+function resetCanvasSize() {
+    canvas.width = innerWidth
+    canvas.height = innerHeight
 }
 
 document.onkeydown = queueMovement
 document.onkeyup = resetMovement
+window.onresize = resetCanvasSize;
 
 setInterval(animate, 1000/tickRate)
